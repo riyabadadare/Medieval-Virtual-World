@@ -68,12 +68,24 @@ public final class VirtualWorld extends PApplet {
     // Be sure to refactor this method as appropriate
     public void mousePressed() {
         Point pressed = mouseToPoint();
+
         System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
 
         Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (entityOptional.isPresent()) {
-            Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass() + " : ");
+//        Entity entity = world.getOccupant(pressed);
+//        if (entityOptional.isPresent()) {
+//            Entity entity = entityOptional.get();
+//            System.out.println(entity.getId() + ": " + entity.getClass() + " : ");
+//        }
+        if(entityOptional.isPresent() && entityOptional.get().getClass() == Obstacle.class) {
+            Entity frog = new Fairy("frog", pressed, imageStore.getImageList("frog"), 1, 0);
+            world.addEntity(frog);
+//            Background frogBack = new Background("frog", imageStore.getImageList("frog"));
+//            world.setBackgroundCell(new Point(pressed.x + 2, pressed.y + 2), frogBack);
+        }
+        else if(entityOptional.isEmpty()){
+            Entity cow = new Fairy("cow", pressed, imageStore.getImageList("cow"), 1, 0);
+            world.addEntity(cow);
         }
     }
 

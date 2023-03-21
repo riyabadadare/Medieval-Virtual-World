@@ -136,6 +136,13 @@ public final class WorldModel {
         }
     }
 
+//    public void addFrog(Entity entity) {
+//        if (this.withinBounds(entity.getPosition())) {
+//            this.setOccupancyCell(new Point(entity.getPosition().x + 2, entity.getPosition().y + 2), entity);
+//            this.entities.add(entity);
+//        }
+//    }
+
     public void removeEntity(EventScheduler scheduler, Entity entity) {
         scheduler.unscheduleAllEvents(entity);
         this.removeEntityAt(entity.getPosition());
