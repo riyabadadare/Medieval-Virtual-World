@@ -39,4 +39,12 @@ public final class Creates {
         return new DudeFull(id, position, images, resourceLimit, actionPeriod, animationPeriod);
     }
 
+    public static Cow createCow(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
+        return new Cow(id, position, images, actionPeriod, animationPeriod);
+    }
+
+    public static Frog createFrog(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
+        return new Frog(id, position, images, actionPeriod, animationPeriod);
+    }
+
 }

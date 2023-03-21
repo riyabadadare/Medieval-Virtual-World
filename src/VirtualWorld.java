@@ -78,13 +78,13 @@ public final class VirtualWorld extends PApplet {
 //            System.out.println(entity.getId() + ": " + entity.getClass() + " : ");
 //        }
         if(entityOptional.isPresent() && entityOptional.get().getClass() == Obstacle.class) {
-            Entity frog = new Fairy("frog", pressed, imageStore.getImageList("frog"), 1, 0);
+            Entity frog = new Frog("frog", pressed, imageStore.getImageList("frog"), 1, 0);
             world.addEntity(frog);
 //            Background frogBack = new Background("frog", imageStore.getImageList("frog"));
 //            world.setBackgroundCell(new Point(pressed.x + 2, pressed.y + 2), frogBack);
         }
         else if(entityOptional.isEmpty()){
-            Entity cow = new Fairy("cow", pressed, imageStore.getImageList("cow"), 1, 0);
+            Entity cow = new Cow("cow", pressed, imageStore.getImageList("cow"), 1, 0);
             world.addEntity(cow);
         }
     }
