@@ -105,6 +105,7 @@ public final class VirtualWorld extends PApplet {
                 Princess princess = new Princess("princess", pressed, imageStore.getImageList("princess"), 1, 1);
                 world.addEntity(princess);
                 princess.scheduleActions(scheduler, world, imageStore);
+                System.out.println("Hi");
             }
             else {
                 //spawn cow
