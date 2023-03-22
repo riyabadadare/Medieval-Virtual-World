@@ -47,14 +47,14 @@ public final class Frog extends EntityAbstract implements Being {
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> cowTarget = findNearest(world, this.getPosition(), new ArrayList<>(List.of(Stump.class)));
+        Optional<Entity> frogTarget = findNearest(world, this.getPosition(), new ArrayList<>(List.of(Stump.class)));
 
-        if (cowTarget.isPresent()) {
-            Point tgtPos = cowTarget.get().getPosition();
+        if (frogTarget.isPresent()) {
+            Point tgtPos = frogTarget.get().getPosition();
 
-            if (this.moveTo(world, cowTarget.get(), scheduler)) {
+            if (this.moveTo(world, frogTarget.get(), scheduler)) {
 
-                Sapling sapling = Creates.createSapling(ImageStore.SAPLING_KEY + "_" + cowTarget.get().getId(), tgtPos, imageStore.getImageList(ImageStore.SAPLING_KEY), 0);
+                Sapling sapling = Creates.createSapling(ImageStore.SAPLING_KEY + "_" + frogTarget.get().getId(), tgtPos, imageStore.getImageList(ImageStore.SAPLING_KEY), 0);
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);
