@@ -91,26 +91,37 @@ public final class VirtualWorld extends PApplet {
 //            world.setBackgroundCell(new Point(pressed.x + 2, pressed.y + 2), frogBack);
         }
         else if(entityOptional.isEmpty()){
-            Cow cow = new Cow("cow", pressed, imageStore.getImageList("cow"), 1, 1);
-            world.addEntity(cow);
-            cow.scheduleActions(scheduler, world, imageStore);
-            Background dirtCow = new Background("dirt", imageStore.getImageList("dirt"));
+            //if press in vicinity of frog, spawn princess
 
-            List<Point> validneighbors =
-                    neighbors(pressed).stream()
-                            .filter(p -> world.getBackgroundImage(p).get() != imageStore.getImageList("lilypad").get(0))
-                            .collect(Collectors.toList());
-            for(Point n : validneighbors) {
-                world.setBackgroundCell(n, dirtCow);
+            List<Point> pressedNeighbors = neighbors(pressed);
+            boolean nearFrog = false;
+            for(Point pN : pressedNeighbors) {
+                if(world.getOccupancyCell(pN).getClass() == Frog.class) {
+                    nearFrog = true;
+                }
             }
-//            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y),dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y + 1), dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y - 1), dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x, pressed.y + 1),dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x, pressed.y - 1), dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y),dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y + 1), dirtCow);
-//            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y - 1), dirtCow);
+            if(nearFrog) {
+                //spawn princess
+                Princess princess = new Princess("princess", pressed, imageStore.getImageList("princess"), 1, 1);
+                world.addEntity(princess);
+                princess.scheduleActions(scheduler, world, imageStore);
+            }
+
+            else {
+                //spawn cow
+                Cow cow = new Cow("cow", pressed, imageStore.getImageList("cow"), 1, 1);
+                world.addEntity(cow);
+                cow.scheduleActions(scheduler, world, imageStore);
+                Background dirtCow = new Background("dirt", imageStore.getImageList("dirt"));
+
+                List<Point> validneighbors =
+                        neighbors(pressed).stream()
+                                .filter(p -> world.getBackgroundImage(p).get() != imageStore.getImageList("lilypad").get(0))
+                                .collect(Collectors.toList());
+                for(Point n : validneighbors) {
+                    world.setBackgroundCell(n, dirtCow);
+                }
+            }
         }
     }
 
