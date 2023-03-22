@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import com.sun.jdi.ArrayReference;
 import processing.core.*;
 
 public final class VirtualWorld extends PApplet {
@@ -93,17 +95,36 @@ public final class VirtualWorld extends PApplet {
             world.addEntity(cow);
             cow.scheduleActions(scheduler, world, imageStore);
             Background dirtCow = new Background("dirt", imageStore.getImageList("dirt"));
-            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y),dirtCow);
-            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y + 1), dirtCow);
-            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y - 1), dirtCow);
-            world.setBackgroundCell(new Point(pressed.x, pressed.y + 1),dirtCow);
-            world.setBackgroundCell(new Point(pressed.x, pressed.y - 1), dirtCow);
-            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y),dirtCow);
-            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y + 1), dirtCow);
-            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y - 1), dirtCow);
 
-
+            List<Point> validneighbors =
+                    neighbors(pressed).stream()
+                            .filter(p -> world.getBackgroundImage(p).get() != imageStore.getImageList("lilypad").get(0))
+                            .collect(Collectors.toList());
+            for(Point n : validneighbors) {
+                world.setBackgroundCell(n, dirtCow);
+            }
+//            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y),dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y + 1), dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y - 1), dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x, pressed.y + 1),dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x, pressed.y - 1), dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y),dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y + 1), dirtCow);
+//            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y - 1), dirtCow);
         }
+    }
+
+    private ArrayList<Point> neighbors(Point p) {
+        ArrayList<Point> neighbors = new ArrayList<Point>();
+        neighbors.add(new Point(p.x + 1, p.y));
+        neighbors.add(new Point(p.x + 1, p.y + 1));
+        neighbors.add(new Point(p.x + 1, p.y -1));
+        neighbors.add(new Point(p.x, p.y + 1));
+        neighbors.add(new Point(p.x, p.y - 1));
+        neighbors.add(new Point(p.x - 1, p.y));
+        neighbors.add(new Point(p.x - 1, p.y + 1));
+        neighbors.add(new Point(p.x - 1, p.y - 1));
+        return neighbors;
     }
 
     private Point mouseToPoint() {
