@@ -47,4 +47,8 @@ public final class Creates {
         return new Frog(id, position, images, actionPeriod, animationPeriod);
     }
 
+    public static Princess createPrincess(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
+        return new Princess(id, position, images, actionPeriod, animationPeriod);
+    }
+
 }

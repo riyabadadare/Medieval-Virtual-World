@@ -91,22 +91,21 @@ public final class VirtualWorld extends PApplet {
 //            world.setBackgroundCell(new Point(pressed.x + 2, pressed.y + 2), frogBack);
         }
         else if(entityOptional.isEmpty()){
-            //if press in vicinity of frog, spawn princess
 
             List<Point> pressedNeighbors = neighbors(pressed);
             boolean nearFrog = false;
             for(Point pN : pressedNeighbors) {
-                if(world.getOccupancyCell(pN).getClass() == Frog.class) {
+                if(world.getOccupancyCell(pN) != null && world.getOccupancyCell(pN).getClass() == Frog.class) {
                     nearFrog = true;
                 }
             }
+            System.out.println(nearFrog);
             if(nearFrog) {
                 //spawn princess
                 Princess princess = new Princess("princess", pressed, imageStore.getImageList("princess"), 1, 1);
                 world.addEntity(princess);
                 princess.scheduleActions(scheduler, world, imageStore);
             }
-
             else {
                 //spawn cow
                 Cow cow = new Cow("cow", pressed, imageStore.getImageList("cow"), 1, 1);
