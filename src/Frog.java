@@ -39,9 +39,9 @@ public final class Frog extends EntityAbstract implements Being {
         } else {
             Point nextPos = this.nextPosition(world, target.getPosition());
 
-            Point currPos = getPosition();
-            Obstacle water = new Obstacle("obstacle", currPos, virtualWorld.getImageStore().getImageList("obstacle"), 1);
-            world.setOccupancyCell(currPos, water);
+//            Point currPos = getPosition();
+//            Obstacle water = new Obstacle("obstacle", currPos, .getImageList("obstacle"), 1);
+//            world.setOccupancyCell(currPos, water);
 
             if (!getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);

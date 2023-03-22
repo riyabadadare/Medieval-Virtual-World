@@ -79,8 +79,8 @@ public final class VirtualWorld extends PApplet {
 //        }
         if(entityOptional.isPresent() && entityOptional.get().getClass() == Obstacle.class) {
             world.removeEntity(scheduler, entityOptional.get());
-            Background staticWater = new Background("staticWater", imageStore.getImageList("staticWater"));
-            world.setBackgroundCell(pressed, staticWater);
+            Background lilypad = new Background("lilypad", imageStore.getImageList("lilypad"));
+            world.setBackgroundCell(pressed, lilypad);
             Frog frog = new Frog("frog", pressed, imageStore.getImageList("frog"), 1, 1);
             world.addEntity(frog);
             frog.scheduleActions(scheduler, world, imageStore);
@@ -92,6 +92,16 @@ public final class VirtualWorld extends PApplet {
             Cow cow = new Cow("cow", pressed, imageStore.getImageList("cow"), 1, 1);
             world.addEntity(cow);
             cow.scheduleActions(scheduler, world, imageStore);
+            Background dirtCow = new Background("dirt", imageStore.getImageList("dirt"));
+            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y),dirtCow);
+            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y + 1), dirtCow);
+            world.setBackgroundCell(new Point(pressed.x + 1, pressed.y - 1), dirtCow);
+            world.setBackgroundCell(new Point(pressed.x, pressed.y + 1),dirtCow);
+            world.setBackgroundCell(new Point(pressed.x, pressed.y - 1), dirtCow);
+            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y),dirtCow);
+            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y + 1), dirtCow);
+            world.setBackgroundCell(new Point(pressed.x - 1, pressed.y - 1), dirtCow);
+
 
         }
     }
